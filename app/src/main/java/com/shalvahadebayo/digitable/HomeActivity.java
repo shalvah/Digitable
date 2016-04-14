@@ -13,18 +13,24 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class HomeActivity extends AppCompatActivity
-		implements NavigationView.OnNavigationItemSelectedListener {
+		implements NavigationView.OnNavigationItemSelectedListener
+	{
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
+		//set up action bar
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		setTitle("Home");
 
+		//set up fab
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
+		fab.setOnClickListener(new View.OnClickListener()
+		{
 			@Override
 			public void onClick(View view) {
 				Intent addAssignmentIntent = new Intent(getBaseContext(), AddAssignmentActivity.class);
@@ -35,12 +41,12 @@ public class HomeActivity extends AppCompatActivity
 			}
 		});
 
+		//set up nav drawer
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
 				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.setDrawerListener(toggle);
 		toggle.syncState();
-
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 		navigationView.setCheckedItem(R.id.nav_home);
@@ -48,11 +54,14 @@ public class HomeActivity extends AppCompatActivity
 	}
 
 	@Override
-	public void onBackPressed() {
+	public void onBackPressed()
+	{
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		if (drawer.isDrawerOpen(GravityCompat.START)) {
+		if (drawer.isDrawerOpen(GravityCompat.START))
+		{
 			drawer.closeDrawer(GravityCompat.START);
-		} else {
+		} else
+		{
 			super.onBackPressed();
 		}
 	}
@@ -60,31 +69,37 @@ public class HomeActivity extends AppCompatActivity
 
 	@SuppressWarnings("StatementWithEmptyBody")
 	@Override
-	public boolean onNavigationItemSelected(MenuItem item) {
+	public boolean onNavigationItemSelected(MenuItem item)
+	{
 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
 
-		if (id == R.id.nav_timetable) {
-			// Handle the camera action
-		} else if (id == R.id.nav_projects) {
+		if (id == R.id.nav_timetable)
+		{
+			//launch timetable here
+		} else if (id == R.id.nav_projects)
+		{
 			Intent alIntent = new Intent(this, AssignmentListActivity.class);
 			startActivity(alIntent);
 
-		} else if (id == R.id.nav_settings) {
+		} else if (id == R.id.nav_settings)
+		{
 			Intent settingsIntent = new Intent(this, SettingsActivity.class);
 			startActivity(settingsIntent);
 
-		} else if (id == R.id.nav_profile) {
-			Intent alIntent = new Intent(this, AssignmentListActivity.class);
-			startActivity(alIntent);
+		} else if (id == R.id.nav_profile)
+		{
+			//launch profile here
+		} else if (id == R.id.nav_about)
+		{
+			Intent aboutIntent = new Intent(this, AboutActivity.class);
+			startActivity(aboutIntent);
 
-		} else if (id == R.id.nav_about) {
-			Intent boutIntent = new Intent(this, AboutActivity.class);
-			startActivity(boutIntent);
+		} else if (id == R.id.nav_share)
+		{
 
-		} else if (id == R.id.nav_share) {
-
-		} else if (id == R.id.nav_send) {
+		} else if (id == R.id.nav_send)
+		{
 
 		}
 

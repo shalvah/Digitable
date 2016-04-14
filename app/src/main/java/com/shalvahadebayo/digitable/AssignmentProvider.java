@@ -27,6 +27,7 @@ public class AssignmentProvider extends ContentProvider {
 	public static final int ASSIGNMENTS = 1;
 	public static final int ASSIGNMENT_ID = 2;
 	private static final UriMatcher aUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+	private static SQLiteDatabase db;
 
 	static {
 		aUriMatcher.addURI(PROVIDER_NAME, BASE_PATH, ASSIGNMENTS);
@@ -34,7 +35,6 @@ public class AssignmentProvider extends ContentProvider {
 	}
 
 	private MySQLiteHelper mySQLiteHelper;
-	private SQLiteDatabase db;
 
 	public AssignmentProvider() {
 	}
@@ -44,7 +44,7 @@ public class AssignmentProvider extends ContentProvider {
 		// Implement this to handle requests to delete one or more rows.
 		int uriType = aUriMatcher.match(uri);
 		SQLiteDatabase db = mySQLiteHelper.getWritableDatabase();
-		int rowsDeleted = 0;
+		int rowsDeleted;
 
 		switch (uriType)
 
@@ -80,7 +80,7 @@ public class AssignmentProvider extends ContentProvider {
 	public Uri insert(Uri uri, ContentValues values) {
 		int uriType = aUriMatcher.match(uri);
 		SQLiteDatabase db = mySQLiteHelper.getWritableDatabase();
-		long id = 0;
+		long id;
 
 		switch (uriType) {
 			case ASSIGNMENTS:
@@ -162,8 +162,8 @@ public class AssignmentProvider extends ContentProvider {
 	}
 
 	private void checkColumns(String[] projection) {
-		String[] available = {MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_DESCRIPTION,
-				MySQLiteHelper.COLUMN_ID};
+		String[] available = {MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper
+				.COLUMN_DESCRIPTION};
 		if (projection != null) {
 			HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
 			HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));
@@ -174,4 +174,6 @@ public class AssignmentProvider extends ContentProvider {
 		}
 
 	}
+
+
 }
