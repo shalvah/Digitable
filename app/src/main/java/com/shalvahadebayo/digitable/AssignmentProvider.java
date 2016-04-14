@@ -163,7 +163,7 @@ public class AssignmentProvider extends ContentProvider {
 
 	private void checkColumns(String[] projection) {
 		String[] available = {MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper
-				.COLUMN_DESCRIPTION};
+				.COLUMN_DESCRIPTION, MySQLiteHelper.COLUMN_DEADLINE_DATE, MySQLiteHelper.COLUMN_DEADLINE_TIME};
 		if (projection != null) {
 			HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
 			HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));

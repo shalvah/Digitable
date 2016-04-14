@@ -156,7 +156,7 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 		public Loader<Cursor> onCreateLoader(int id, Bundle args)
 		{
 			String[] projection = {MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper
-					.COLUMN_DESCRIPTION};
+					.COLUMN_DESCRIPTION, MySQLiteHelper.COLUMN_DEADLINE_DATE, MySQLiteHelper.COLUMN_DEADLINE_TIME};
 
 			return new CursorLoader(this, AssignmentProvider.CONTENT_URI, projection, null, null,
 					null);

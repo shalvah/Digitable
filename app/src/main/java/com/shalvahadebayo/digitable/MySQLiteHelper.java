@@ -15,9 +15,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper
 		public static final String COLUMN_ID = "_id";
 		public static final String COLUMN_TITLE = "title";
 		public static final String COLUMN_DESCRIPTION = "description";
+		public static final String COLUMN_DEADLINE_DATE = "deadline_date";
+		public static final String COLUMN_DEADLINE_TIME = "deadline_time";
 
 		private static final String DATABASE_NAME = "assignments.db";
-		private static final int DATABASE_VERSION = 2;
+		private static final int DATABASE_VERSION = 3;
 
 		/**
 		 * sql db creation statement
@@ -25,7 +27,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper
 		private static final String DATABASE_CREATE =
 				"CREATE TABLE " + TABLE_ASSIGNMENTS + "(" + COLUMN_ID
 						+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE
-						+ " TEXT NOT NULL, " + COLUMN_DESCRIPTION + " TEXT);";
+						+ " TEXT NOT NULL, " + COLUMN_DESCRIPTION
+						+ " TEXT NOT NULL, " + COLUMN_DEADLINE_DATE
+						+ " TEXT NOT NULL, " + COLUMN_DEADLINE_TIME + " TEXT);";
 
 		public MySQLiteHelper(Context context)
 		{

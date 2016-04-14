@@ -54,7 +54,9 @@ public class AssignmentDetailFragment extends Fragment {
 			cursor = activity.getContentResolver()
 					.query(
 							uri,
-							new String[]{MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_DESCRIPTION},
+							new String[]{MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper
+									.COLUMN_DESCRIPTION, MySQLiteHelper.COLUMN_DEADLINE_DATE, MySQLiteHelper
+									.COLUMN_DEADLINE_TIME},
 							MySQLiteHelper.COLUMN_ID + "=?",
 							new String[]{getArguments().getString(ARG_ITEM_ID, "1")},
 							null);
@@ -71,7 +73,10 @@ public class AssignmentDetailFragment extends Fragment {
 	                         Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.assignment_detail, container, false);
 
-		((TextView) rootView.findViewById(R.id.assignment_detail)).setText(cursor.getString(2));
+		((TextView) rootView.findViewById(R.id.assignment_description)).setText(cursor.getString(2));
+		((TextView) rootView.findViewById(R.id.assignment_deadline)).setText("Expires " + cursor
+				.getString(3) + " at " + cursor.getString(4));
+
 
 		return rootView;
 	}
