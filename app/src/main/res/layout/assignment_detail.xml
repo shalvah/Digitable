@@ -1,10 +1,31 @@
-<TextView
-    android:id="@+id/assignment_detail"
-    style="?android:attr/textAppearanceLarge"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="com.shalvahadebayo.digitable.AssignmentDetailFragment"/>
+    tools:context="com.shalvahadebayo.digitable.AssignmentDetailFragment">
+
+
+    <TextView
+        android:id="@+id/assignment_description"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"/>
+
+    <TextView
+        android:id="@+id/assignment_deadline"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"/>
+
+    <TextView
+        android:id="@+id/assignment_priority"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"/>
+</LinearLayout>

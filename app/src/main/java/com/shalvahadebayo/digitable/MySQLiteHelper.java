@@ -8,28 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MySQLiteHelper extends SQLiteOpenHelper
 	{
 
-		//table name
-		public static final String TABLE_ASSIGNMENTS = "assignments";
+		private static final String DATABASE_NAME = "digitable.db";
+		private static final int DATABASE_VERSION = 2;
 
-		//fields
-		public static final String COLUMN_ID = "_id";
-		public static final String COLUMN_TITLE = "title";
-		public static final String COLUMN_DESCRIPTION = "description";
-		public static final String COLUMN_DEADLINE_DATE = "deadline_date";
-		public static final String COLUMN_DEADLINE_TIME = "deadline_time";
-
-		private static final String DATABASE_NAME = "assignments.db";
-		private static final int DATABASE_VERSION = 3;
-
-		/**
-		 * sql db creation statement
-		 */
-		private static final String DATABASE_CREATE =
-				"CREATE TABLE " + TABLE_ASSIGNMENTS + "(" + COLUMN_ID
-						+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE
-						+ " TEXT NOT NULL, " + COLUMN_DESCRIPTION
-						+ " TEXT NOT NULL, " + COLUMN_DEADLINE_DATE
-						+ " TEXT NOT NULL, " + COLUMN_DEADLINE_TIME + " TEXT);";
 
 		public MySQLiteHelper(Context context)
 		{
@@ -39,13 +20,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper
 		@Override
 		public void onCreate(SQLiteDatabase db)
 		{
-			db.execSQL(DATABASE_CREATE);
+			db.execSQL(AssignmentTable.CREATE_TABLE_ASSIGNMENTS);
+			db.execSQL(CourseTable.CREATE_TABLE_COURSES);
+			db.execSQL(ClassTable.CREATE_TABLE_CLASSES);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 		{
-			db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSIGNMENTS);
+			db.execSQL("DROP TABLE IF EXISTS " + AssignmentTable.TABLE_ASSIGNMENTS);
+			db.execSQL("DROP TABLE IF EXISTS " + CourseTable.TABLE_COURSES);
+			db.execSQL("DROP TABLE IF EXISTS " + ClassTable.TABLE_CLASSES);
 			onCreate(db);
 		}
 

@@ -56,6 +56,11 @@
         <item>-1</item>
     </string-array>
 
+    <string-array name="priority_values">
+        <item>Normal</item>
+        <item>Low</item>
+        <item>High</item>
+    </string-array>
     <string name="pref_title_system_sync_settings">System sync settings</string>
 
     <!-- Example settings for Notifications -->
@@ -71,4 +76,7 @@
     <string name="title_assignment_detail">Assignment Detail</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
+    <string name="title_course_list">Courses</string>
+    <string name="title_course_detail">Course Detail</string>
+    <string name="courses">Courses</string>
 </resources>

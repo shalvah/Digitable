@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
@@ -49,10 +50,7 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_assignment_list);
 
-			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
-			setSupportActionBar(toolbar);
-			toolbar.setTitle("Assignments");
-
+			setupActionBarNavDrawerFab();
 
 			if (findViewById(R.id.assignment_detail_container) != null)
 			{
@@ -67,15 +65,6 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 			lv = (ListView) findViewById(android.R.id.list);
 			fillData();
 
-			DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-			ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-					this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-			drawer.setDrawerListener(toggle);
-			toggle.syncState();
-
-			NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
-			navigationView.setNavigationItemSelectedListener(this);
-			navigationView.setCheckedItem(R.id.nav_projects);
 
 			lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
 			{
@@ -105,6 +94,39 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 
 		}
 
+		private void setupActionBarNavDrawerFab()
+		{
+			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+			setSupportActionBar(toolbar);
+			assert toolbar != null;
+			toolbar.setTitle("Assignments");
+
+			DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+			ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+					this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+			assert drawer != null;
+			//noinspection deprecation,deprecation
+			drawer.setDrawerListener(toggle);
+			toggle.syncState();
+
+			NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+			assert navigationView != null;
+			navigationView.setNavigationItemSelectedListener(this);
+			navigationView.setCheckedItem(R.id.nav_projects);
+
+			FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+			assert fab != null;
+			fab.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View view)
+				{
+					Intent addAssignmentIntent = new Intent(getBaseContext(), AddAssignmentActivity.class);
+					startActivity(addAssignmentIntent);
+				}
+			});
+		}
+
 
 		@Override
 		public boolean onCreateOptionsMenu(Menu menu)
@@ -119,24 +141,25 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 		public boolean onOptionsItemSelected(MenuItem item)
 		{
 			int id = item.getItemId();
-			if (id == android.R.id.home)
+			switch (id)
 			{
-				// This ID represents the Home or Up button. In the case of this
-				// activity, the Up button is shown. Use NavUtils to allow users
-				// to navigate up one level in the application structure. For
-				// more details, see the Navigation pattern on Android Design:
-				//
-				// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-				//
-				NavUtils.navigateUpFromSameTask(this);
-				return true;
-			} else if (id == R.id.clear_all)
-			{
-				getContentResolver().delete(AssignmentProvider.CONTENT_URI, null, null);
-			} else if (id == R.id.new_assignment)
-			{
-				Intent intent = new Intent(this, AddAssignmentActivity.class);
-				startActivity(intent);
+				case android.R.id.home:
+					// This ID represents the Home or Up button. In the case of this
+					// activity, the Up button is shown. Use NavUtils to allow users
+					// to navigate up one level in the application structure. For
+					// more details, see the Navigation pattern on Android Design:
+					//
+					// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+					//
+					NavUtils.navigateUpFromSameTask(this);
+					return true;
+				case R.id.clear_all:
+					getContentResolver().delete(AssignmentProvider.CONTENT_URI, null, null);
+					break;
+				case R.id.new_assignment:
+					Intent intent = new Intent(this, AddAssignmentActivity.class);
+					startActivity(intent);
+					break;
 			}
 			return super.onOptionsItemSelected(item);
 		}
@@ -146,7 +169,7 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 			getLoaderManager().initLoader(0, null, this);
 
 			sca = new SimpleCursorAdapter(this, R.layout.assignment_list_item, null,
-					new String[]{MySQLiteHelper.COLUMN_TITLE}, new int[]
+					new String[]{AssignmentTable.COLUMN_TITLE}, new int[]
 					{R.id.titleText}, 0);
 			lv.setAdapter(sca);
 
@@ -155,8 +178,9 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 		@Override
 		public Loader<Cursor> onCreateLoader(int id, Bundle args)
 		{
-			String[] projection = {MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper
-					.COLUMN_DESCRIPTION, MySQLiteHelper.COLUMN_DEADLINE_DATE, MySQLiteHelper.COLUMN_DEADLINE_TIME};
+			String[] projection = {AssignmentTable.COLUMN_ID, AssignmentTable.COLUMN_TITLE,
+					AssignmentTable.COLUMN_DESCRIPTION, AssignmentTable.COLUMN_DEADLINE_DATE,
+					AssignmentTable.COLUMN_DEADLINE_TIME, AssignmentTable.COLUMN_PRIORITY, AssignmentTable.COLUMN_REMINDER_SET};
 
 			return new CursorLoader(this, AssignmentProvider.CONTENT_URI, projection, null, null,
 					null);
@@ -179,12 +203,14 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 		public void onBackPressed()
 		{
 			DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+			assert drawer != null;
 			if (drawer.isDrawerOpen(GravityCompat.START))
 			{
 				drawer.closeDrawer(GravityCompat.START);
 			} else
 			{
-				super.onBackPressed();
+				Intent i = new Intent(this, HomeActivity.class);
+				startActivity(i);
 			}
 		}
 
@@ -202,6 +228,11 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 			} else if (id == R.id.nav_home)
 			{
 				Intent alIntent = new Intent(this, HomeActivity.class);
+				startActivity(alIntent);
+
+			} else if (id == R.id.nav_courses)
+			{
+				Intent alIntent = new Intent(this, CourseListActivity.class);
 				startActivity(alIntent);
 
 			} else if (id == R.id.nav_settings)
@@ -228,6 +259,7 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 			}
 
 			DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+			assert drawer != null;
 			drawer.closeDrawer(GravityCompat.START);
 			return true;
 		}

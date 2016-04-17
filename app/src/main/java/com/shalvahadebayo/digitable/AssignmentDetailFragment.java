@@ -54,10 +54,10 @@ public class AssignmentDetailFragment extends Fragment {
 			cursor = activity.getContentResolver()
 					.query(
 							uri,
-							new String[]{MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper
-									.COLUMN_DESCRIPTION, MySQLiteHelper.COLUMN_DEADLINE_DATE, MySQLiteHelper
-									.COLUMN_DEADLINE_TIME},
-							MySQLiteHelper.COLUMN_ID + "=?",
+							new String[]{AssignmentTable.COLUMN_ID, AssignmentTable.COLUMN_TITLE, AssignmentTable
+									.COLUMN_DESCRIPTION, AssignmentTable.COLUMN_DEADLINE_DATE, AssignmentTable
+									.COLUMN_DEADLINE_TIME, AssignmentTable.COLUMN_PRIORITY, AssignmentTable.COLUMN_REMINDER_SET},
+							AssignmentTable.COLUMN_ID + "=?",
 							new String[]{getArguments().getString(ARG_ITEM_ID, "1")},
 							null);
 			cursor.moveToFirst();
@@ -76,6 +76,21 @@ public class AssignmentDetailFragment extends Fragment {
 		((TextView) rootView.findViewById(R.id.assignment_description)).setText(cursor.getString(2));
 		((TextView) rootView.findViewById(R.id.assignment_deadline)).setText("Expires " + cursor
 				.getString(3) + " at " + cursor.getString(4));
+		String priority;
+		switch (cursor.getInt(5))
+		{
+
+			case 1:
+				priority = "LOW";
+				break;
+			case 2:
+				priority = "HIGH";
+				break;
+			default:
+				priority = "NORMAl";
+				break;
+		}
+		((TextView) rootView.findViewById(R.id.assignment_priority)).setText(priority);
 
 
 		return rootView;

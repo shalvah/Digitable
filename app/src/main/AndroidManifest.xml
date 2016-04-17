@@ -5,9 +5,10 @@
 
     <uses-sdk android:minSdkVersion="15"/>
 
-    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -35,14 +36,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shalvahadebayo.digitable.HomeActivity"/>
         </activity>
-        <activity android:name=".AboutActivity">
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName=".HomeActivity">
         </activity>
-        <activity android:name=".AddAssignmentActivity">
+        <activity
+            android:name=".AddAssignmentActivity"
+            android:parentActivityName=".HomeActivity">
         </activity>
 
         <provider
             android:name=".AssignmentProvider"
-            android:authorities="com.shalvahadebayo.provider.assignment"
+            android:authorities="com.shalvahadebayo.provider.digitable"
             android:enabled="true"
             android:exported="true">
         </provider>
@@ -65,6 +70,31 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shalvahadebayo.digitable.AssignmentListActivity"/>
+        </activity>
+
+        <receiver android:name=".AlarmReceiver"/>
+
+        <activity
+            android:name=".AddCourseActivity"
+            android:parentActivityName=".CourseListActivity">
+        </activity>
+        <activity
+            android:name=".CourseListActivity"
+            android:label="@string/title_course_list"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shalvahadebayo.digitable.HomeActivity"/>
+        </activity>
+        <activity
+            android:name=".CourseDetailActivity"
+            android:label="@string/title_course_detail"
+            android:parentActivityName=".CourseListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shalvahadebayo.digitable.CourseListActivity"/>
         </activity>
     </application>
 

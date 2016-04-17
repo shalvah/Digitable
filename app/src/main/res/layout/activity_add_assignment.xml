@@ -12,43 +12,72 @@
     tools:context="com.shalvahadebayo.digitable.AddAssignmentActivity">
 
     <EditText
-        android:id="@+id/titleET"
+        android:id="@+id/assignmentTitleET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
         android:inputType="text"/>
 
     <EditText
-        android:id="@+id/descET"
+        android:id="@+id/assignmentDescET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Description"
         android:inputType="textMultiLine"/>
 
-    <android.support.v7.widget.SwitchCompat
+
+    <LinearLayout
+        android:id="@+id/deadlineField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Set Reminder"/>
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/deadlineNull"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="setDeadline"
+            android:text="Tap to set a deadline"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/priority_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"/>
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onToggleClicked"
+        android:text="Set Reminder"
+        android:textOff="Off"
+        android:textOn="On"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/resetBtn"
+        <Button
+            android:id="@+id/assignmentResetBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:onClick="reset"
+            android:onClick="assignmentReset"
             android:text="Reset"/>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/doneBtn"
+        <Button
+            android:id="@+id/assignmentDoneBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="done"
+            android:onClick="assignmentDone"
             android:text="Done"/>
     </LinearLayout>
 </LinearLayout>
