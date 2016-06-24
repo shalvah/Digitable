@@ -1,20 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.shalvahadebayo.digitable.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/now_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
-</RelativeLayout>
+        android:background="@android:color/darker_gray"
+        android:text="Now"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+    <android.support.v7.widget.CardView
+        android:id="@+id/now_card_view"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/white"
+        android:visibility="gone"
+        card_view:cardElevation="4dp">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+
+                      android:paddingBottom="8dp"
+                      android:paddingLeft="16dp"
+                      android:paddingRight="16dp"
+                      android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/now_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="About"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/now_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Digitable helps you keep track of your lecture and assignments schedule"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/upcomiing_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:text="Upcoming"
+        android:textSize="16sp"
+        android:visibility="gone"
+
+    />
+    <android.support.v7.widget.CardView
+        android:id="@+id/upcomiing_card_view_1"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/background_dark"
+        android:visibility="gone"
+        card_view:cardElevation="4dp">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:padding="4dp">
+
+            <TextView
+                android:id="@+id/upcomiing_title_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="About"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/upcomiing_content_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Digitable helps you keep track of your lecture and assignments schedule"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/upcomiing_card_view_2"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/background_dark"
+        android:visibility="gone"
+        card_view:cardElevation="4dp">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:padding="4dp"
+
+                      android:paddingBottom="8dp"
+                      android:paddingLeft="16dp"
+                      android:paddingRight="16dp"
+                      android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/upcomiing_title_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="About"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/upcomiing_content_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Digitable hlps you keep track of your lecture and assignments schedule"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/reader_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:padding="8dp"
+        android:text="From Your Reader"
+        android:textSize="16sp"
+        android:visibility="gone"
+    />
+    <android.support.v7.widget.CardView
+        android:id="@+id/reader_card_view_1"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/background_dark"
+        android:visibility="gone"
+        card_view:cardElevation="4dp">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:paddingBottom="8dp"
+                      android:paddingLeft="16dp"
+                      android:paddingRight="16dp"
+                      android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/reader_title_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Feedback?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/reader_content_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Contact us:"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/reader_card_view_2"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:visibility="gone"
+        card_view:cardElevation="4dp"
+    >
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:paddingBottom="8dp"
+                      android:paddingLeft="16dp"
+                      android:paddingRight="16dp"
+                      android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/reader_title_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Feedback?"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/reader_content_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Contact us:"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

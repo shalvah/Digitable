@@ -8,24 +8,45 @@
     tools:context="com.shalvahadebayo.digitable.AssignmentDetailFragment">
 
 
+    <TextView style="?android:attr/textAppearanceSmall"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="DESCRIPTION"
+              android:textIsSelectable="true"/>
     <TextView
         android:id="@+id/assignment_description"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Desc"
+        android:textIsSelectable="true"/>
+
+    <TextView
+        style="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DEADLINE"
         android:textIsSelectable="true"/>
 
     <TextView
         android:id="@+id/assignment_deadline"
-        style="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="No Deadline"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <TextView
+
+        style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="PRIORITY"
         android:textIsSelectable="true"/>
-
     <TextView
         android:id="@+id/assignment_priority"
-        style="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textIsSelectable="true"/>
+        android:text="NORMAL"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 </LinearLayout>

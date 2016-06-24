@@ -1,19 +1,17 @@
 package com.shalvahadebayo.digitable;
 
-/**
- * Created by ACER pc on 16/04/2016.
- */
 public class ClassTable
 	{
 		//table name
 		public static final String TABLE_CLASSES = "classes";
 
 		//fields
-		public static final String COLUMN_ID = "classid";
+		public static final String COLUMN_ID = "_id";
 		public static final String COLUMN_WEEKDAY = "weekday";
 		public static final String COLUMN_TIME_START = "start";
 		public static final String COLUMN_TIME_END = "end";
-		public static final String COLUMN_COURSE = "course";
+		public static final String COLUMN_CLASS_REMINDER_SET = "class_reminder_set";
+		public static final String COLUMN_COURSE = "course_name";
 
 		/**
 		 * sql db creation statement
@@ -24,9 +22,10 @@ public class ClassTable
 						+ COLUMN_WEEKDAY + " TEXT NOT NULL, "
 						+ COLUMN_TIME_START + " TEXT NOT NULL, "
 						+ COLUMN_TIME_END + " TEXT NOT NULL, "
-						+ COLUMN_COURSE + " INTEGER NOT NULL, "
+						+ COLUMN_CLASS_REMINDER_SET + " INTEGER NOT NULL, "
+						+ COLUMN_COURSE + " TEXT NOT NULL, "
 						+ "FOREIGN KEY(" + COLUMN_COURSE + ") REFERENCES "
-						+ CourseTable.TABLE_COURSES + "(" + CourseTable.COLUMN_ID + "));";
+						+ CourseTable.TABLE_COURSES + "(" + CourseTable.COLUMN_COURSE_CODE + "));";
 
 
 	}

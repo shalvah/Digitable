@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            tools:context=".SetupActivity">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+    >
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="16dp"
+                  android:gravity="center"
+                  android:text="Productivity."
+                  android:textSize="34sp"
+                  android:textStyle="italic"/>
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="16dp"
+                  android:gravity="center"
+                  android:text="Now"
+                  android:textSize="34sp"
+                  android:textStyle="italic"/>
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:layout_margin="16dp"
+                   android:src="@drawable/logo"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="16dp"
+                  android:gravity="center"
+                  android:text="Digitable"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="30sp"/>
+
+        <EditText
+            android:id="@+id/field_study"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Your field of study"
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:textSize="22sp"
+        />
+
+        <Button android:id="@+id/get_started_btn"
+                style="@style/ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="22dp"
+                android:background="@android:color/darker_gray"
+                android:enabled="false"
+                android:padding="16dp"
+                android:text="Get Started"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="22sp"
+        />
+
+    </LinearLayout>
+</ScrollView>

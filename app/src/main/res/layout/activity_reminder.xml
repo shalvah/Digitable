@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:fitsSystemWindows="true"
+                android:padding="@dimen/activity_horizontal_margin"
+                tools:context="com.shalvahadebayo.digitable.SetupReaderActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+
+        <TextView android:id="@+id/ass_title"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentTop="true"
+                  android:layout_margin="@dimen/activity_horizontal_margin"
+                  android:gravity="center"
+                  android:text="Assignment Title"
+                  android:textAppearance="?android:attr/textAppearanceLarge"
+                  android:textColor="@android:color/white"
+        />
+
+        <TextView android:id="@+id/ass_desc"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@+id/fullscreen_content"
+                  android:layout_margin="@dimen/activity_horizontal_margin"
+                  android:ellipsize="end"
+                  android:gravity="center"
+                  android:maxLines="3"
+                  android:text="Description"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:textColor="@android:color/white"
+                  android:textStyle="bold"/>
+
+        <TextView android:id="@+id/deadline_header"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@+id/fullscreen_content"
+                  android:layout_margin="@dimen/activity_horizontal_margin"
+                  android:gravity="center"
+                  android:text="The deadline is almost here!"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:textColor="@android:color/white"
+                  android:textStyle="italic"/>
+        <TextView android:id="@+id/deadline"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="@dimen/activity_horizontal_margin"
+                  android:gravity="center"
+                  android:text="Date"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:textColor="@android:color/white"
+                  android:textStyle="bold"/>
+
+    </LinearLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp">
+        <Button android:id="@+id/snooze"
+                style="?buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="16dp"
+                android:paddingLeft="20dp"
+                android:text="Snooze"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"/>
+        <Button android:id="@+id/dismiss"
+                style="?buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="16dp"
+                android:paddingRight="20dp"
+                android:text="Dismiss"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

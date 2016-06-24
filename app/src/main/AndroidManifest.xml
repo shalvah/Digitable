@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.shalvahadebayo.digitable"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.shalvahadebayo.digitable"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-sdk android:minSdkVersion="15"/>
+    <uses-sdk android:minSdkVersion="17"/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -38,18 +41,19 @@
         </activity>
         <activity
             android:name=".AboutActivity"
+            android:launchMode="singleTask"
             android:parentActivityName=".HomeActivity">
         </activity>
         <activity
             android:name=".AddAssignmentActivity"
+            android:launchMode="singleTask"
             android:parentActivityName=".HomeActivity">
         </activity>
 
         <provider
-            android:name=".AssignmentProvider"
+            android:name=".DataProvider"
             android:authorities="com.shalvahadebayo.provider.digitable"
-            android:enabled="true"
-            android:exported="true">
+            android:enabled="true">
         </provider>
 
         <activity
@@ -65,6 +69,7 @@
         <activity
             android:name=".AssignmentDetailActivity"
             android:label="@string/title_assignment_detail"
+            android:launchMode="singleTask"
             android:parentActivityName=".AssignmentListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -76,11 +81,13 @@
 
         <activity
             android:name=".AddCourseActivity"
+            android:launchMode="singleTask"
             android:parentActivityName=".CourseListActivity">
         </activity>
         <activity
             android:name=".CourseListActivity"
             android:label="@string/title_course_list"
+            android:launchMode="singleTask"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -90,11 +97,74 @@
         <activity
             android:name=".CourseDetailActivity"
             android:label="@string/title_course_detail"
+            android:launchMode="singleTask"
             android:parentActivityName=".CourseListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shalvahadebayo.digitable.CourseListActivity"/>
+        </activity>
+        <activity
+            android:name=".TimetableActivity"
+            android:label="@string/title_activity_timetable"
+            android:launchMode="singleTask"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shalvahadebayo.digitable.HomeActivity"/>
+        </activity>
+        <activity
+            android:name=".AddClassActivity"
+            android:launchMode="singleTask"
+            android:parentActivityName=".TimetableActivity">
+        </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/title_activity_welcome"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".SetupActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".StoryListActivity"
+            android:label="@string/title_story_list"
+            android:launchMode="singleTask"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shalvahadebayo.digitable.HomeActivity"/>
+        </activity>
+        <activity
+            android:name=".StoryDetailActivity"
+            android:label="@string/title_story_detail"
+            android:launchMode="singleTask"
+            android:parentActivityName=".StoryListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shalvahadebayo.digitable.StoryListActivity"/>
+        </activity>
+        <activity
+            android:name=".SetupReaderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_setup_reader"
+            android:launchMode="singleTask"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shalvahadebayo.digitable.HomeActivity"/>
+        </activity>
+        <activity
+            android:name=".ReminderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_reminder"
+            android:theme="@style/FullscreenTheme">
         </activity>
     </application>
 

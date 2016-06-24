@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- The primary full-screen view. This can be replaced with whatever view
+     is needed to present your content, e.g. VideoView, SurfaceView,
+     TextureView, etc. -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical"
+                android:padding="@dimen/activity_horizontal_margin"
+                tools:context="com.shalvahadebayo.digitable.SetupReaderActivity">
+
+
+    <TextView android:id="@+id/fullscreen_content"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignParentTop="true"
+              android:layout_margin="@dimen/activity_horizontal_margin"
+              android:gravity="center"
+              android:text="Reader keeps you up-to-date on news and info from your field"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+              android:textColor="@android:color/white"
+              android:textStyle="italic"/>
+
+    <TextView android:id="@+id/pref"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/fullscreen_content"
+              android:layout_margin="@dimen/activity_horizontal_margin"
+              android:gravity="center"
+              android:text="What are you interested in?"
+              android:textAppearance="?android:attr/textAppearanceMedium"
+              android:textColor="@android:color/white"
+              android:textStyle="bold"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_above="@+id/reader_launch"
+                  android:layout_marginBottom="40dp"
+                  android:layout_marginLeft="4dp"
+                  android:layout_marginRight="4dp"
+                  android:orientation="horizontal">
+
+
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:orientation="vertical"
+                      android:paddingEnd="2dp"
+                      android:paddingRight="2dp">
+            <CheckBox android:id="@+id/checkbox_agric"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:text="@string/keyword_agric"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+
+                      android:textColor="@android:color/white"/>
+            <CheckBox android:id="@+id/checkbox_fluid"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:paddingBottom="4dp"
+                      android:text="@string/keyword_fluid_mech"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="@android:color/white"
+            />
+            <CheckBox android:id="@+id/checkbox_metmat"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:paddingBottom="4dp"
+                      android:text="@string/keyword_metmat"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="@android:color/white"/>
+            <CheckBox android:id="@+id/checkbox_puzzles"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:paddingBottom="4dp"
+                      android:text="@string/keyword_puzzles"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="@android:color/white"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:orientation="vertical"
+                      android:paddingLeft="2dp"
+                      android:paddingStart="2dp">
+            <CheckBox android:id="@+id/checkbox_ml"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:paddingBottom="4dp"
+                      android:text="@string/keyword_ml"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="@android:color/white"
+            />
+            <CheckBox android:id="@+id/checkbox_thermo"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:paddingBottom="4dp"
+                      android:text="@string/keyword_thermo"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="@android:color/white"
+            />
+            <CheckBox android:id="@+id/checkbox_phil"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:paddingBottom="4dp"
+                      android:text="@string/keyword_phil"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="@android:color/white"/>
+            <CheckBox android:id="@+id/checkbox_software_dev"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:paddingBottom="4dp"
+                      android:text="@string/keyword_software_dev"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="@android:color/white"
+            />
+        </LinearLayout>
+    </LinearLayout>
+    <Button android:id="@+id/reader_launch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorAccent"
+            android:onClick="readerSetupDone"
+            android:text="Show Me Useful Stuff"
+            android:textAppearance="?android:attr/textAppearanceButton"
+            android:textColor="@android:color/white"/>
+</RelativeLayout>

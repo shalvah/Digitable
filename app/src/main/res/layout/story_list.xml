@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.shalvahadebayo.digitable.StoryListActivity">
+
+
+    <ListView android:id="@android:id/list"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/load_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="updateStoryList"
+        android:padding="16dp"
+        android:text="Tap to load more articles from the internet"
+        android:textAppearance="?android:textAppearanceSmall"/>
+
+</LinearLayout>

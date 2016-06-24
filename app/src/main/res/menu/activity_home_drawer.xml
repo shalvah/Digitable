@@ -4,47 +4,30 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@android:drawable/ic_menu_gallery"
+            android:icon="@android:drawable/ic_menu_day"
             android:title="@string/home"/>
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/nav_reader"
             android:icon="@android:drawable/ic_menu_agenda"
-            android:title="@string/profile"/>
+            android:title="@string/reader"/>
         <item
             android:id="@+id/nav_timetable"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="@string/timetable"/>
         <item
             android:id="@+id/nav_courses"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@android:drawable/ic_menu_agenda"
             android:title="@string/courses"/>
         <item
             android:id="@+id/nav_projects"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@android:drawable/ic_menu_edit"
             android:title="@string/projects"/>
 
-
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/action_settings"/>
         <item
             android:id="@+id/nav_about"
-            android:icon="@android:drawable/ic_menu_info_details"
+            android:icon="@android:drawable/ic_menu_help"
             android:title="@string/about"/>
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share"/>
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send"/>
-        </menu>
-    </item>
 
 </menu>
