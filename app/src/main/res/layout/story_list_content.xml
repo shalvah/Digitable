@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/activity_horizontal_margin"
+              android:background="?android:selectableItemBackground"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_horizontal_margin">
+
+    <ImageView
+        android:id="@+id/story_img"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/circle_black"/>
+    <LinearLayout android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="16dp"
+                  android:layout_weight="1"
+                  android:orientation="vertical">
+        <TextView
+            android:id="@+id/story_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Story Title"
+
+            android:textAppearance="?attr/textAppearanceListItem"/>
+        <TextView
+            android:id="@+id/story_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Story Details"
+            android:textSize="12sp"
+        />
+    </LinearLayout>
+</LinearLayout>

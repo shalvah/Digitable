@@ -17,9 +17,9 @@ public class CourseTable
 		public static final String CREATE_TABLE_COURSES =
 				"CREATE TABLE " + TABLE_COURSES + "("
 						+ COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-						+ COLUMN_COURSE_CODE + " TEXT, "
-						+ COLUMN_COURSE_TITLE + " TEXT NOT NULL, "
-						+ COLUMN_UNITS + " INTEGER);";
+						+ COLUMN_COURSE_CODE + " TEXT NOT NULL, "
+						+ COLUMN_COURSE_TITLE + " TEXT, "
+						+ COLUMN_UNITS + " INTEGER NOT NULL);";
 
 
 	}

@@ -3,9 +3,11 @@ package com.shalvahadebayo.digitable;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,6 +16,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 /**
  * An activity representing a list of Courses. This activity
@@ -36,6 +40,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 		.LoaderCallbacks<Cursor>, NavigationView.OnNavigationItemSelectedListener
 	{
 		private ListView lv;
+		private TextView emptyView;
 		private SimpleCursorAdapter sca;
 		/**
 		 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -49,7 +54,9 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_course_list);
 
-			setupActionBaNavDrawerFab();
+			setupActionBarNavDrawerFab();
+			emptyView = (TextView) findViewById(android.R.id.empty);
+			emptyView.setText(R.string.courses_empty);
 
 			//populate the list
 			lv = (ListView) findViewById(android.R.id.list);
@@ -77,22 +84,20 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 						CourseDetailFragment fragment = new CourseDetailFragment();
 						fragment.setArguments(arguments);
 						getSupportFragmentManager().beginTransaction()
-								.replace(R.id.assignment_detail_container, fragment)
+								.replace(R.id.course_detail_container, fragment)
 								.commit();
 					} else
 					{
-
 						Context context = view.getContext();
 						Intent intent = new Intent(context, CourseDetailActivity.class);
 						intent.putExtra(CourseDetailFragment.ARG_ITEM_ID, "" + (id));
-
 						context.startActivity(intent);
 					}
 				}
 			});
 		}
 
-		private void setupActionBaNavDrawerFab()
+		private void setupActionBarNavDrawerFab()
 		{
 			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 			setSupportActionBar(toolbar);
@@ -128,7 +133,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			drawer.setDrawerListener(toggle);
 			toggle.syncState();
 
-			NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
+			NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 			assert navigationView != null;
 			navigationView.setNavigationItemSelectedListener(this);
 			navigationView.setCheckedItem(R.id.nav_courses);
@@ -138,9 +143,9 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 		{
 			getLoaderManager().initLoader(0, null, this);
 
-			sca = new SimpleCursorAdapter(this, R.layout.assignment_list_item, null,
-					new String[]{CourseTable.COLUMN_COURSE_TITLE}, new int[]
-					{R.id.titleText}, 0);
+			sca = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, null,
+					new String[]{CourseTable.COLUMN_COURSE_CODE, CourseTable.COLUMN_COURSE_TITLE}, new int[]
+					{android.R.id.text1, android.R.id.text2}, 0);
 			lv.setAdapter(sca);
 
 		}
@@ -162,12 +167,9 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 					NavUtils.navigateUpFromSameTask(this);
 					return true;
 				case R.id.clear_all:
-					getContentResolver().delete(AssignmentProvider.CONTENT_URI2, null, null);
-					break;
-				case R.id.new_assignment:
-					Intent intent = new Intent(this, AddCourseActivity.class);
-					this.startActivity(intent);
-					break;
+					AlertDialog dialog = confirmDelete(DataProvider.CONTENT_URI, null, null);
+					dialog.show();
+					return true;
 
 			}
 			return super.onOptionsItemSelected(item);
@@ -180,7 +182,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			String[] projection = {CourseTable.COLUMN_ID, CourseTable.COLUMN_COURSE_CODE,
 					CourseTable.COLUMN_COURSE_TITLE, CourseTable.COLUMN_UNITS};
 
-			return new CursorLoader(this, AssignmentProvider.CONTENT_URI2, projection, null, null,
+			return new CursorLoader(this, DataProvider.CONTENT_URI2, projection, null, null,
 					null);
 		}
 
@@ -188,6 +190,10 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 		public void onLoadFinished(Loader<Cursor> loader, Cursor data)
 		{
 			sca.swapCursor(data);
+			if (data.getCount() == 0)
+				emptyView.setVisibility(View.VISIBLE); //// TODO: 06/06/2016 make sure this works IMMEDIATELY AFTER DELETION
+			else
+				emptyView.setVisibility(View.GONE);
 
 		}
 
@@ -229,7 +235,8 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			switch (id)
 			{
 				case R.id.nav_timetable:
-					// Handle the camera action
+					Intent i = new Intent(this, TimetableActivity.class);
+					startActivity(i);
 					break;
 				case R.id.nav_projects:
 				{
@@ -245,14 +252,10 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 
 					break;
 				}
-				case R.id.nav_settings:
-					Intent settingsIntent = new Intent(this, SettingsActivity.class);
-					startActivity(settingsIntent);
 
-					break;
-				case R.id.nav_profile:
+				case R.id.nav_reader:
 				{
-					Intent alIntent = new Intent(this, AssignmentListActivity.class);
+					Intent alIntent = new Intent(this, StoryListActivity.class);
 					startActivity(alIntent);
 
 					break;
@@ -262,17 +265,47 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 					startActivity(boutIntent);
 
 					break;
-				case R.id.nav_share:
-
-					break;
-				case R.id.nav_send:
-
-					break;
 			}
 
 			DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 			assert drawer != null;
 			drawer.closeDrawer(GravityCompat.START);
 			return true;
+		}
+
+		@Override
+		protected void onResume()
+		{
+			super.onResume();
+			NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+			assert navigationView != null;
+			navigationView.setCheckedItem(R.id.nav_courses);
+
+		}
+
+		public AlertDialog confirmDelete(final Uri uri, final String where, final String[]
+				selectionArgs)
+		{
+			AlertDialog deleteConfirmation = new AlertDialog.Builder(getBaseContext())
+					.setMessage("Are you sure you want to delete all assignments?")
+					.setTitle("All Assignments")
+					.setPositiveButton("Delete", new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								getContentResolver().delete(uri, where, selectionArgs);
+							}
+						})
+					.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								dialog.dismiss();
+							}
+						})
+					.create();
+			return deleteConfirmation;
 		}
 	}

@@ -3,9 +3,11 @@ package com.shalvahadebayo.digitable;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -13,15 +15,18 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 
 /**
@@ -37,7 +42,8 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 	{
 
 		private ListView lv;
-		private SimpleCursorAdapter sca;
+		private TextView emptyView;
+		private AListMSCA sca;
 		/**
 		 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 		 * device.
@@ -51,7 +57,7 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 			setContentView(R.layout.activity_assignment_list);
 
 			setupActionBarNavDrawerFab();
-
+			emptyView = (TextView) findViewById(android.R.id.empty);
 			if (findViewById(R.id.assignment_detail_container) != null)
 			{
 				// The detail container view will be present only in the
@@ -64,6 +70,7 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 			//populate the list
 			lv = (ListView) findViewById(android.R.id.list);
 			fillData();
+
 
 
 			lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -82,11 +89,9 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 								.commit();
 					} else
 					{
-
 						Context context = view.getContext();
 						Intent intent = new Intent(context, AssignmentDetailActivity.class);
 						intent.putExtra(AssignmentDetailFragment.ARG_ITEM_ID, "" + (id));
-
 						context.startActivity(intent);
 					}
 				}
@@ -127,6 +132,16 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 			});
 		}
 
+		@Override
+		protected void onResume()
+		{
+			super.onResume();
+			NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+			assert navigationView != null;
+			navigationView.setCheckedItem(R.id.nav_projects);
+
+
+		}
 
 		@Override
 		public boolean onCreateOptionsMenu(Menu menu)
@@ -154,24 +169,26 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 					NavUtils.navigateUpFromSameTask(this);
 					return true;
 				case R.id.clear_all:
-					getContentResolver().delete(AssignmentProvider.CONTENT_URI, null, null);
-					break;
-				case R.id.new_assignment:
-					Intent intent = new Intent(this, AddAssignmentActivity.class);
-					startActivity(intent);
-					break;
+					AlertDialog dialog = confirmDelete(DataProvider.CONTENT_URI, null, null);
+					dialog.show();
+					return true;
+
 			}
 			return super.onOptionsItemSelected(item);
 		}
+
 
 		private void fillData()
 		{
 			getLoaderManager().initLoader(0, null, this);
 
-			sca = new SimpleCursorAdapter(this, R.layout.assignment_list_item, null,
-					new String[]{AssignmentTable.COLUMN_TITLE}, new int[]
-					{R.id.titleText}, 0);
+			sca = new AListMSCA(this, R.layout.assignment_list_item, null,
+					new String[]{AssignmentTable.COLUMN_TITLE, AssignmentTable.COLUMN_PRIORITY,
+							AssignmentTable.COLUMN_DEADLINE_DATE, AssignmentTable.COLUMN_DEADLINE_TIME}, new int[]
+					{R.id.assignmentTitleText, R.id.assignmentPriorityText, R.id.assignmentDeadlineText, R
+							.id.assignmentDeadlineTimeText}, 0);
 			lv.setAdapter(sca);
+
 
 		}
 
@@ -182,7 +199,7 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 					AssignmentTable.COLUMN_DESCRIPTION, AssignmentTable.COLUMN_DEADLINE_DATE,
 					AssignmentTable.COLUMN_DEADLINE_TIME, AssignmentTable.COLUMN_PRIORITY, AssignmentTable.COLUMN_REMINDER_SET};
 
-			return new CursorLoader(this, AssignmentProvider.CONTENT_URI, projection, null, null,
+			return new CursorLoader(this, DataProvider.CONTENT_URI, projection, null, null,
 					null);
 		}
 
@@ -190,12 +207,16 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 		public void onLoadFinished(Loader<Cursor> loader, Cursor data)
 		{
 			sca.swapCursor(data);
-
+			if (data.getCount() == 0)
+				emptyView.setVisibility(View.VISIBLE); //// TODO: 06/06/2016 make sure this works IMMEDIATELY AFTER DELETION
+			else
+				emptyView.setVisibility(View.GONE);
 		}
 
 		@Override
 		public void onLoaderReset(Loader<Cursor> loader)
 		{
+
 			sca.swapCursor(null);
 		}
 
@@ -215,47 +236,45 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 		}
 
 
-		@SuppressWarnings("StatementWithEmptyBody")
 		@Override
 		public boolean onNavigationItemSelected(MenuItem item)
 		{
 			// Handle navigation view item clicks here.
 			int id = item.getItemId();
 
-			if (id == R.id.nav_timetable)
+			switch (id)
 			{
-				// Handle the camera action
-			} else if (id == R.id.nav_home)
-			{
-				Intent alIntent = new Intent(this, HomeActivity.class);
-				startActivity(alIntent);
+				case R.id.nav_timetable:
+					Intent i = new Intent(this, TimetableActivity.class);
+					startActivity(i);
+					break;
+				case R.id.nav_home:
+				{
+					Intent alIntent = new Intent(this, HomeActivity.class);
+					startActivity(alIntent);
 
-			} else if (id == R.id.nav_courses)
-			{
-				Intent alIntent = new Intent(this, CourseListActivity.class);
-				startActivity(alIntent);
+					break;
+				}
+				case R.id.nav_courses:
+				{
+					Intent alIntent = new Intent(this, CourseListActivity.class);
+					startActivity(alIntent);
 
-			} else if (id == R.id.nav_settings)
-			{
-				Intent settingsIntent = new Intent(this, SettingsActivity.class);
-				startActivity(settingsIntent);
+					break;
+				}
 
-			} else if (id == R.id.nav_profile)
-			{
-				Intent alIntent = new Intent(this, AssignmentListActivity.class);
-				startActivity(alIntent);
+				case R.id.nav_reader:
+				{
+					Intent alIntent = new Intent(this, StoryListActivity.class);
+					startActivity(alIntent);
 
-			} else if (id == R.id.nav_about)
-			{
-				Intent boutIntent = new Intent(this, AboutActivity.class);
-				startActivity(boutIntent);
+					break;
+				}
+				case R.id.nav_about:
+					Intent boutIntent = new Intent(this, AboutActivity.class);
+					startActivity(boutIntent);
 
-			} else if (id == R.id.nav_share)
-			{
-
-			} else if (id == R.id.nav_send)
-			{
-
+					break;
 			}
 
 			DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -265,4 +284,74 @@ public class AssignmentListActivity extends AppCompatActivity implements LoaderM
 		}
 
 
+		public AlertDialog confirmDelete(final Uri uri, final String where, final String[]
+				selectionArgs)
+		{
+			AlertDialog deleteConfirmation = new AlertDialog.Builder(getBaseContext())
+					.setMessage("Are you sure you want to delete all assignments?")
+					.setTitle("All Assignments")
+					.setIcon(android.R.drawable.ic_menu_delete)
+					.setPositiveButton("Delete", new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								getContentResolver().delete(uri, where, selectionArgs);
+							}
+						})
+					.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								dialog.dismiss();
+							}
+						})
+					.create();
+			return deleteConfirmation;
+		}
+
+		class AListMSCA extends MySimpleCursorAdapter
+			{
+				public AListMSCA(Context context, int layout, Cursor c, String[] from, int[] to, int flags)
+				{
+					super(context, layout, c, from, to, flags);
+				}
+
+				@Override
+				public View getView(int position, View convertView, ViewGroup parent)
+				{
+					View view = super.getView(position, convertView, parent);
+
+					TextView priorityText = (TextView) view.findViewById(R.id.assignmentPriorityText);
+					ImageView priorityImg = (ImageView) view.findViewById(R.id.assignmentPriorityImg);
+					switch (priorityText.getText().toString())
+					{
+
+						case "2":
+							priorityText.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+							priorityText.setText(getResources().getString(R.string.priority_high));
+							priorityImg.setImageDrawable(getResources().getDrawable(R.drawable.circle_red));
+							break;
+						case "0":
+							priorityText.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+							priorityText.setText(getResources().getString(R.string.priority_low));
+							priorityImg.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+							break;
+						default:
+							priorityText.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+							priorityText.setText(getResources().getString(R.string.priority_normal));
+							priorityImg.setImageDrawable(getResources().getDrawable(R.drawable.circle_black));
+							break;
+					}
+					TextView deadlineText = (TextView) view.findViewById(R.id.assignmentDeadlineText);
+					TextView deadlineTimeText = (TextView) view.findViewById(R.id.assignmentDeadlineTimeText);
+					String deadlineTime = deadlineTimeText.getText().toString();
+					String deadlineDate = deadlineText.getText().toString();
+					if (!deadlineDate.equals(""))
+						deadlineText.setText(deadlineDate + ", " + deadlineTime);
+
+					return view;
+				}
+			}
 	}

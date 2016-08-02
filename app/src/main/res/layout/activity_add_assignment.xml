@@ -15,6 +15,7 @@
         android:id="@+id/assignmentTitleET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:hint="Title"
         android:inputType="text"/>
 
@@ -31,32 +32,95 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+    >
+        <TextView android:id="@+id/dateText"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_marginRight="16dp"
+                  android:layout_weight="2"
+                  android:background="@color/colorAccent"
+                  android:clickable="true"
+                  android:gravity="center"
+                  android:paddingBottom="8dp"
+                  android:paddingTop="8dp"
+                  android:text="Date"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="20sp"
+                  android:visibility="gone"/>
+        <TextView android:id="@+id/timeText"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_marginEnd="8dp"
+                  android:layout_weight="2"
+                  android:background="@color/colorAccent"
+                  android:clickable="true"
+                  android:gravity="center"
+                  android:paddingBottom="8dp"
+                  android:paddingTop="8dp"
+                  android:text="Time"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="20sp"
+                  android:visibility="gone"/>
 
+        <ImageButton android:id="@+id/cancelBtn"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:src="@android:drawable/ic_menu_close_clear_cancel"
+                     android:visibility="gone"/>
         <TextView
             android:id="@+id/deadlineNull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:onClick="setDeadline"
             android:text="Tap to set a deadline"
-            android:textSize="18sp"/>
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="16dp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+                  android:paddingBottom="8dp"
+                  android:text="Priority:"
+                  android:textSize="18sp"/>
     <Spinner
         android:id="@+id/priority_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:paddingBottom="8dp"
         android:spinnerMode="dropdown"/>
+    </LinearLayout>
 
     <Switch
+        android:id="@+id/reminderSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:enabled="false"
         android:onClick="onToggleClicked"
+        android:paddingBottom="8dp"
         android:text="Set Reminder"
         android:textOff="Off"
-        android:textOn="On"/>
+        android:textOn="On"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/reminderDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tap to set a deadline"
+        android:textAppearance="?android:textAppearanceListItemSmall"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,6 +129,7 @@
 
         <Button
             android:id="@+id/assignmentResetBtn"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -74,9 +139,12 @@
 
         <Button
             android:id="@+id/assignmentDoneBtn"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:enabled="false"
             android:onClick="assignmentDone"
             android:text="Done"/>
     </LinearLayout>

@@ -1,7 +1,8 @@
 package com.shalvahadebayo.digitable;
 
 /**
- * Created by ACER pc on 16/04/2016.
+ * Created by Shalvah on 16/04/2016
+ * Holds constants for the 'ASSIGNMENTS' table in the SQLite db
  */
 public class AssignmentTable
 	{
@@ -16,6 +17,8 @@ public class AssignmentTable
 		public static final String COLUMN_DEADLINE_TIME = "deadline_time";
 		public static final String COLUMN_PRIORITY = "priority";
 		public static final String COLUMN_REMINDER_SET = "reminder";
+		public static final String COLUMN_REMINDER_DATE = "reminder_date";
+		public static final String COLUMN_REMINDER_TIME = "reminder_time";
 
 		/**
 		 * sql db table creation statement
