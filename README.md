@@ -28,4 +28,6 @@ Other Features:
 *Show complete lecture list
 
 
-Feel free to contribute 
+Feel free to contribute.
+
+Apk at https://dropbox.com/s/a61cm9xzfx50trz/Digitable_1.0.apk?dl=0
